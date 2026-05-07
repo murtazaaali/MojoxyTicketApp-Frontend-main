@@ -5,7 +5,6 @@ import type { Ticket, TicketFormData } from "../types";
 import useUsersStore from "../store/user";
 import useEventsStore from "../store/event";
 import usePlatformPricingStore from "../store/platform_pricing";
-import { FilterUpcomingEvents } from "../utilities/functions";
 import { PAYMENT_METHODS, PAYMENT_STATUS, TICKET_STATUS } from "../utilities/const";
 import { Button, ReactFormInput, SearchSelect, Select } from "../components/ui";
 import { Section, FieldError, PriceLine } from "../components/shared/form";
@@ -71,7 +70,7 @@ const TicketForm = ({
     // ─── Effects ─────────────────────────────────────────────────────────────
 
     useEffect(() => {
-        fetchEvents();
+        fetchEvents("", "", "upcoming");
         if (isAdminTicket) {
             fetchUsers();
             if (!isPlatformPricingFetched) fetchPlatformPricing();
@@ -132,7 +131,7 @@ const TicketForm = ({
         [selectedEventId, events]
     );
 
-    const upcomingEvents = useMemo(() => FilterUpcomingEvents(events), [events]);
+
 
     const subtotal = ticketsData.reduce((sum, t) => sum + (t.priceAmount || 0), 0);
     const calculatedPlatformFee =
@@ -211,7 +210,7 @@ const TicketForm = ({
                                     label="Select Event"
                                     icon={<Calendar className="w-4 h-4" />}
                                     placeholder="Search events..."
-                                    options={upcomingEvents.map((e) => ({
+                                    options={events.map((e) => ({
                                         value: String(e._id),
                                         label: e.event_name,
                                         sublabel: e.start_date,
