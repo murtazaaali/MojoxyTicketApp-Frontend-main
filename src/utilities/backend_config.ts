@@ -1,6 +1,6 @@
-// export const BACKEND_URL = `https://mojoxy-ticket-backend.vercel.app`;
+export const BACKEND_URL = `https://mojoxy-ticket-backend-81qh.vercel.app/`;
 
-export const BACKEND_URL = `http://localhost:3000`;
+// export const BACKEND_URL = `http://localhost:3000`;
 
 const BASE_API_URL = "/api";
 

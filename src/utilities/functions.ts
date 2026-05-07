@@ -1,5 +1,3 @@
-import type { Event } from "../types";
-
 const formatDate = (dateString: string): string =>
   new Date(dateString).toLocaleDateString("en-US", {
     day: "numeric",
@@ -40,18 +38,4 @@ const calculateGrandTotal = (
   };
 };
 
-const FilterUpcomingEvents = (events: Event[]) => {
-  const now = new Date();
-
-  return events.filter((e) => {
-    if (!e.approved) return false;
-    if (!e.end_date || !e.end_time) return false;
-
-    const eventEnd = new Date(`${e.end_date}T${e.end_time}`);
-    if (isNaN(eventEnd.getTime())) return false;
-
-    return eventEnd >= now;
-  });
-};
-
-export { formatDate, formatTime, calculateGrandTotal, FilterUpcomingEvents };
+export { formatDate, formatTime, calculateGrandTotal };
